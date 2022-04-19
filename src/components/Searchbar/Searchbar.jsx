@@ -4,6 +4,7 @@ import { Component } from 'react';
 export class Searchbar extends Component {
   state = {
     searchQuery: '',
+    currentPage: 1,
   };
 
   handleChange = evt => {
@@ -17,26 +18,27 @@ export class Searchbar extends Component {
 
       return;
     }
-    this.props.onSubmit(this.state.searchQuery);
-    this.setState({ searchQuery: '' });
+    this.props.onSubmit(this.state.searchQuery, this.state.currentPage);
+    this.setState({ searchQuery: '', currentPage: 1 });
   };
 
   render() {
     return (
-      <header className="searchbar">
-        <form onSubmit={this.handleSubmit} className="form">
+      <header className="Searchbar">
+        <form className="SearchForm" onSubmit={this.handleSubmit}>
+          <button type="submit" className="SearchForm-button">
+            <span className="SearchForm-button-label">Search</span>
+          </button>
           <input
-            className="input"
+            className="SearchForm-input"
+            name="searchQuery"
             type="text"
-            // autocomplete="off"
-            // autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
             value={this.state.searchQuery}
             onChange={this.handleChange}
           />
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
-          </button>
         </form>
       </header>
     );
