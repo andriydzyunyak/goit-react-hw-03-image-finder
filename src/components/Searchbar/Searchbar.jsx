@@ -1,8 +1,8 @@
 import { Component } from 'react';
-//import { toast } from 'react-toastify';
 
 export class Searchbar extends Component {
   state = {
+    gallery: [],
     searchQuery: '',
     currentPage: 1,
   };
@@ -18,8 +18,12 @@ export class Searchbar extends Component {
 
       return;
     }
-    this.props.onSubmit(this.state.searchQuery, this.state.currentPage);
-    this.setState({ searchQuery: '', currentPage: 1 });
+    this.props.onSubmit(
+      this.state.searchQuery,
+      this.state.currentPage,
+      this.state.gallery
+    );
+    this.setState({ searchQuery: '', currentPage: 1, gallery: [] });
   };
 
   render() {

@@ -1,17 +1,9 @@
 // import { BallTriangle } from 'react-loader-spinner';
-import ClipLoader from 'react-spinners/ClipLoader';
+import HashLoader from 'react-spinners/HashLoader';
 export const Loader = ({ loading }) => {
   return (
     <div className="Spinner">
-      <ClipLoader color="#00BFFF" loading={loading} size={150} />
+      <HashLoader color="#ff0000" loading={loading} size={65} />
     </div>
-    // <BallTriangle
-    //   className="Spinner"
-    //   color="#00BFFF"
-    //   height={60}
-    //   width={60}
-    //   ariaLabel="loading"
-    //   loading={loading}
-    // />
   );
 };
