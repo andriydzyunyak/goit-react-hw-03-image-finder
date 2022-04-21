@@ -1,9 +1,15 @@
-// import { BallTriangle } from 'react-loader-spinner';
 import HashLoader from 'react-spinners/HashLoader';
+import { Spinner } from 'components/Loader/Loader.styled';
+import PropTypes from 'prop-types';
+
 export const Loader = ({ loading }) => {
   return (
-    <div className="Spinner">
+    <Spinner>
       <HashLoader color="#ff0000" loading={loading} size={65} />
-    </div>
+    </Spinner>
   );
+};
+
+Loader.propTypes = {
+  loading: PropTypes.bool,
 };

@@ -1,5 +1,10 @@
 import { Modal } from 'components/Modal/Modal';
 import { Component } from 'react';
+import {
+  ImageGalleryCard,
+  ImageGalleryCardImg,
+} from 'components/ImageGalleryItem/ImageGalleryItem.styled';
+import PropTypes from 'prop-types';
 
 export class ImageGalleryItem extends Component {
   state = {
@@ -30,19 +35,24 @@ export class ImageGalleryItem extends Component {
 
   render() {
     const { hit } = this.props;
+    console.log(hit);
     const { isModalOpen } = this.state;
     return (
-      <li className="ImageGalleryItem">
-        <img
+      <ImageGalleryCard>
+        <ImageGalleryCardImg
           src={hit.webformatURL}
           alt="name"
-          className="ImageGalleryItem-image"
           onClick={this.openModal}
         />
         {isModalOpen && (
           <Modal hit={hit} handleOverlayClick={this.handleOverlayClick} />
         )}
-      </li>
+      </ImageGalleryCard>
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  hit: PropTypes.object.isRequired,
+  webformatURL: PropTypes.string,
+};

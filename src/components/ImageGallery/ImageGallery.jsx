@@ -1,5 +1,7 @@
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
-import { ButtonLoadMore } from 'components/Button/Button';
+import { Button } from 'components/Button/Button';
+import { ImageGalleryList } from 'components/ImageGallery/ImageGallery.styled';
+import PropTypes from 'prop-types';
 
 export const ImageGallery = ({
   gallery,
@@ -11,12 +13,20 @@ export const ImageGallery = ({
   const totalImages = totalHits - currentPage * 12;
   return (
     <>
-      <ul className="ImageGallery">
+      <ImageGalleryList>
         {gallery.map(hit => (
           <ImageGalleryItem key={hit.id} hit={hit} />
         ))}
-      </ul>
-      {totalImages > 0 && !isLoading && <ButtonLoadMore loadMore={loadMore} />}
+      </ImageGalleryList>
+      {totalImages > 0 && !isLoading && <Button loadMore={loadMore} />}
     </>
   );
+};
+
+ImageGallery.propTypes = {
+  gallery: PropTypes.array.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  totalHits: PropTypes.number.isRequired,
+  loadMore: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };

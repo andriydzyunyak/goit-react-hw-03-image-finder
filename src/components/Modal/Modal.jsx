@@ -1,19 +1,21 @@
 import { createPortal } from 'react-dom';
+import { Overlay, ModalWindow } from 'components/Modal/Modal.styled';
 import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById('modal-root');
 
 export const Modal = ({ hit, handleOverlayClick }) => {
   return createPortal(
-    <div className="Overlay" onClick={handleOverlayClick}>
-      <div className="Modal">
+    <Overlay onClick={handleOverlayClick}>
+      <ModalWindow>
         <img src={hit.largeImageURL} alt="largeImageURL" />
-      </div>
-    </div>,
+      </ModalWindow>
+    </Overlay>,
     modalRoot
   );
 };
 
-Modal.prototype = {
-  hit: PropTypes.object,
+Modal.propTypes = {
+  hit: PropTypes.object.isRequired,
+  handleOverlayClick: PropTypes.func.isRequired,
 };

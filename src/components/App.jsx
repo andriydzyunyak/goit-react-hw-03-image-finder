@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import './styles.css';
+import { Container } from 'components/Container.styled';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Loader } from 'components/Loader/Loader';
@@ -25,41 +25,6 @@ export class App extends Component {
     this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
     this.scrollToBottom();
   };
-
-  // fetchGallery = async () => {
-  //   try {
-  //     const BASE_URL = 'https://pixabay.com/api';
-  //     const KEY = '25368021-46c08c6e665d77f3b0c6d9195';
-  //     const { currentPage, searchQuery } = this.state;
-
-  //     this.setState({ loading: true });
-
-  //     await fetch(
-  //       `${BASE_URL}/?q=${searchQuery}&page=${currentPage}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`
-  //     )
-  //       .then(res => res.json())
-  //       .then(gallery => {
-  //         if (gallery.hits.length === 0) {
-  //           return Promise.reject(new Error('проверьте корректность запроса!'));
-  //         }
-  //         console.log(this.state.gallery.length);
-  //         this.state.gallery.length === 0
-  //           ? this.setState({
-  //               gallery: gallery.hits,
-  //               totalHits: gallery.totalHits,
-  //               error: null,
-  //             })
-  //           : this.setState(prevState => ({
-  //               gallery: [...prevState.gallery, ...gallery.hits],
-  //               error: null,
-  //             }));
-  //       });
-  //   } catch (error) {
-  //     this.setState({ error });
-  //   } finally {
-  //     this.setState({ loading: false });
-  //   }
-  // };
 
   async componentDidUpdate(_, prevState) {
     const { currentPage, searchQuery } = this.state;
@@ -104,11 +69,8 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {/* {this.state.error && (
-          <p className="Error">Ошибка, {this.state.error.message}</p>
-        )} */}
 
         {this.state.totalHits !== 0 && (
           <ImageGallery
@@ -120,7 +82,7 @@ export class App extends Component {
           />
         )}
         <Loader loading={this.state.loading} />
-      </div>
+      </Container>
     );
   }
 }
