@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { BsSearch } from 'react-icons/bs';
+import Notiflix from 'notiflix';
 import {
   SearchBar,
   SearchForm,
@@ -21,16 +22,13 @@ export class Searchbar extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    if (this.state.searchQuery.trim() === '') {
-      alert('Веедите имя запроса');
+    const { gallery, searchQuery, currentPage } = this.state;
+    if (searchQuery.trim() === '') {
+      Notiflix.Notify.warning('Please enter a request name!');
 
       return;
     }
-    this.props.onSubmit(
-      this.state.searchQuery,
-      this.state.currentPage,
-      this.state.gallery
-    );
+    this.props.onSubmit(searchQuery, currentPage, gallery);
     this.setState({ searchQuery: '', currentPage: 1, gallery: [] });
   };
 

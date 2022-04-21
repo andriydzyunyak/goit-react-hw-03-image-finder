@@ -68,20 +68,21 @@ export class App extends Component {
   };
 
   render() {
+    const { totalHits, gallery, currentPage, loading } = this.state;
     return (
       <Container>
         <Searchbar onSubmit={this.handleFormSubmit} />
 
-        {this.state.totalHits !== 0 && (
+        {totalHits !== 0 && (
           <ImageGallery
-            gallery={this.state.gallery}
-            totalHits={this.state.totalHits}
-            currentPage={this.state.currentPage}
+            gallery={gallery}
+            totalHits={totalHits}
+            currentPage={currentPage}
             loadMore={this.loadMore}
-            isLoading={this.state.loading}
+            isLoading={loading}
           />
         )}
-        <Loader loading={this.state.loading} />
+        <Loader loading={loading} />
       </Container>
     );
   }

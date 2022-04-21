@@ -35,7 +35,6 @@ export class ImageGalleryItem extends Component {
 
   render() {
     const { hit } = this.props;
-    console.log(hit);
     const { isModalOpen } = this.state;
     return (
       <ImageGalleryCard>
