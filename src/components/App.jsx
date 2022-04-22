@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { Container } from 'components/Container.styled';
 import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
+import { Button } from 'components/Button/Button';
 import { Loader } from 'components/Loader/Loader';
 import { animateScroll as scroll } from 'react-scroll';
 import * as API from 'services/api';
@@ -45,14 +46,22 @@ export class App extends Component {
           );
         }
 
+        const imagesArray = galleryItems.hits.map(
+          ({ id, webformatURL, largeImageURL }) => ({
+            id,
+            webformatURL,
+            largeImageURL,
+          })
+        );
+
         this.state.gallery.length === 0
           ? this.setState({
-              gallery: galleryItems.hits,
+              gallery: imagesArray,
               totalHits: galleryItems.totalHits,
               error: null,
             })
           : this.setState(prevState => ({
-              gallery: [...prevState.gallery, ...galleryItems.hits],
+              gallery: [...prevState.gallery, ...imagesArray],
               error: null,
             }));
       } catch (error) {
@@ -63,26 +72,29 @@ export class App extends Component {
     }
   }
 
-  handleFormSubmit = (searchQuery, currentPage, gallery) => {
-    this.setState({ searchQuery, currentPage, gallery });
+  handleSubmit = evt => {
+    evt.preventDefault();
+    const searchQueryValue = evt.target.elements.searchQuery.value;
+
+    searchQueryValue.trim() === ''
+      ? Notiflix.Notify.warning('Please enter a request name!')
+      : this.setState({
+          searchQuery: searchQueryValue.toLowerCase(),
+          currentPage: 1,
+          gallery: [],
+        });
   };
 
   render() {
     const { totalHits, gallery, currentPage, loading } = this.state;
+    const totalImages = totalHits - currentPage * 12;
     return (
       <Container>
-        <Searchbar onSubmit={this.handleFormSubmit} />
+        <Searchbar onSubmit={this.handleSubmit} />
 
-        {totalHits !== 0 && (
-          <ImageGallery
-            gallery={gallery}
-            totalHits={totalHits}
-            currentPage={currentPage}
-            loadMore={this.loadMore}
-            isLoading={loading}
-          />
-        )}
+        {totalHits !== 0 && <ImageGallery gallery={gallery} />}
         <Loader loading={loading} />
+        {totalImages > 0 && !loading && <Button loadMore={this.loadMore} />}
       </Container>
     );
   }

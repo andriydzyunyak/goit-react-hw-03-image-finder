@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById('modal-root');
 
-export const Modal = ({ hit, handleOverlayClick }) => {
+export const Modal = ({ image, handleOverlayClick }) => {
   return createPortal(
     <Overlay onClick={handleOverlayClick}>
       <ModalWindow>
-        <img src={hit.largeImageURL} alt="largeImageURL" />
+        <img src={image} alt="largeImageURL" />
       </ModalWindow>
     </Overlay>,
     modalRoot
@@ -16,6 +16,6 @@ export const Modal = ({ hit, handleOverlayClick }) => {
 };
 
 Modal.propTypes = {
-  hit: PropTypes.object.isRequired,
+  image: PropTypes.string.isRequired,
   handleOverlayClick: PropTypes.func.isRequired,
 };

@@ -34,17 +34,20 @@ export class ImageGalleryItem extends Component {
   };
 
   render() {
-    const { hit } = this.props;
+    const { webImage, modalImage } = this.props;
     const { isModalOpen } = this.state;
     return (
       <ImageGalleryCard>
         <ImageGalleryCardImg
-          src={hit.webformatURL}
+          src={webImage}
           alt="name"
           onClick={this.openModal}
         />
         {isModalOpen && (
-          <Modal hit={hit} handleOverlayClick={this.handleOverlayClick} />
+          <Modal
+            image={modalImage}
+            handleOverlayClick={this.handleOverlayClick}
+          />
         )}
       </ImageGalleryCard>
     );
@@ -52,6 +55,6 @@ export class ImageGalleryItem extends Component {
 }
 
 ImageGalleryItem.propTypes = {
-  hit: PropTypes.object.isRequired,
-  webformatURL: PropTypes.string,
+  webImage: PropTypes.string.isRequired,
+  modalImage: PropTypes.string.isRequired,
 };
